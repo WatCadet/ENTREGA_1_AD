@@ -55,7 +55,7 @@ Fecha de entrada al centro, en formato AAAA/MM/DD.
 ```{r, echo=FALSE, output=FALSE}
 data_original$CODI_RACA = as.factor(data_original$CODI_RACA)
 
-cbind(unique(data_original$CODI_RACA), unique(data_original$DESCRIPCIO))
+levels(data_original$CODI_RACA)
 
 sum(data_original$CODI_RACA == "INDE")
 ```
@@ -123,3 +123,14 @@ kable(head(data_animales))
 ```
 
 ## Análisis
+
+Representamos gráficamente cuántos animales de cada raza hay.
+
+```{r, echo=FALSE, warning=FALSE}
+ggplot(data_animales, aes(x=data_animales$CODI_RACA)) +
+  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))
+```
+
+De entre los animales de raza definida, la que predomina es la EUROPEA (EURO), seguida del STAFFORDSHIRE TERRIER AM. (STAR) y el PIT BULL TERRIER AMERICÀ (PITB).
+
+

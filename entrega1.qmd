@@ -78,10 +78,11 @@ levels(data_biblio$Rango_edad)
 
 ### Sexo
 
-Es un factor con dos categorías: Mujer y Hombre.
+Es un factor con dos categorías: Femenino y Masculino.
 
 ```{r, echo=FALSE}
 data_biblio$Sexo = as.factor(data_biblio$Sexo)
+levels(data_biblio$Sexo)
 ```
 
 ## Objetivos
@@ -89,6 +90,7 @@ data_biblio$Sexo = as.factor(data_biblio$Sexo)
 Presentamos los objetivos planteados.
 
 -   ¿Cuál es la principal finalidad con que se dirigen habitualmente a la Biblioteca Histórica Municipal?
+- Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios segun el rango de edad.
 
 ## Análisis
 
@@ -102,6 +104,22 @@ ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
 
 La finalidad principal es Investigación y estudio.
 
+Pasemos ahora a analizar las respuestas sobre el nivel de satisfacción con la Biblioteca Histórica y sus servicios y veamos si existen diferencias significativas en la valoración entre diferentes edades. Para ello visualizemos el siguiente gráfico de violín. 
+
+
+```{r}
+ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_general, fill = Rango_edad)) +
+  geom_violin() +
+  labs(x = "Rango edad", y = "Valoración General", title = "Comparación de Valoración General por Edad") +
+  theme_minimal()
+```
+
+Las personas de 18 a 29 años tienden a dar valoraciones más altas, con menos variabilidad. En cambio, los otros grupos presenta mayor dispersión, con valoraciones tanto altas como bajas, sugiriendo una percepción más diversa sobre los servicios de la Biblioteca Histórica. 
+
 ## Conclusiones
 
-La finalidad principal es Investigación y estudio.
+En resumen, las respuestas a las preguntas iniciales son las siguientes:
+
+- La finalidad principal es Investigación y estudio.
+
+- Las personas de 18 a 29 años ofrecen valoraciones más altas, mientras que los otros grupos muestran mayor dispersión en sus opiniones.

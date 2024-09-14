@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 2%">
 <col style="width: 2%">
@@ -397,7 +397,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sexo" class="level3">
 <h3 class="anchored" data-anchor-id="sexo">Sexo</h3>
-<p>Es un factor con dos categorías: Mujer y Hombre.</p>
+<p>Es un factor con dos categorías: Femenino y Masculino.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] ""          "Femenino"  "Masculino"</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="objetivos" class="level2">
@@ -405,6 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Presentamos los objetivos planteados.</p>
 <ul>
 <li>¿Cuál es la principal finalidad con que se dirigen habitualmente a la Biblioteca Histórica Municipal?</li>
+<li>Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios segun el rango de edad.</li>
 </ul>
 </section>
 <section id="análisis" class="level2">
@@ -420,10 +426,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>La finalidad principal es Investigación y estudio.</p>
+<p>Pasemos ahora a analizar las respuestas sobre el nivel de satisfacción con la Biblioteca Histórica y sus servicios y veamos si existen diferencias significativas en la valoración entre diferentes edades. Para ello visualizemos el siguiente gráfico de violín.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_biblio, <span class="fu">aes</span>(<span class="at">x =</span> Rango_edad, <span class="at">y =</span> Valoracion_general, <span class="at">fill =</span> Rango_edad)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Rango edad"</span>, <span class="at">y =</span> <span class="st">"Valoración General"</span>, <span class="at">title =</span> <span class="st">"Comparación de Valoración General por Edad"</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Las personas de 18 a 29 años tienden a dar valoraciones más altas, con menos variabilidad. En cambio, los otros grupos presenta mayor dispersión, con valoraciones tanto altas como bajas, sugiriendo una percepción más diversa sobre los servicios de la Biblioteca Histórica.</p>
 </section>
 <section id="conclusiones" class="level2">
 <h2 class="anchored" data-anchor-id="conclusiones">Conclusiones</h2>
-<p>La finalidad principal es Investigación y estudio.</p>
+<p>En resumen, las respuestas a las preguntas iniciales son las siguientes:</p>
+<ul>
+<li><p>La finalidad principal es Investigación y estudio.</p></li>
+<li><p>Las personas de 18 a 29 años ofrecen valoraciones más altas, mientras que los otros grupos muestran mayor dispersión en sus opiniones.</p></li>
+</ul>
 </section>
 
 </main>

@@ -14,123 +14,98 @@ library(tidyverse)
 library(knitr)
 ```
 
+Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023.
+Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.
 
 ## Descripción de los datos
 
-Se han recogido datos de los animales en adopción del Centre d'Atenció d'Animals Domèstics de Terrassa. 
+Se han recogido datos del interés, frecuencia de uso, grado de conocimiento y satisfacción de los usuarios de la Biblioteca Histórica Municipal de Madrid en relación a los servicios prestados. Anualmente se realiza una encuesta de satisfacción a las personas usuarias de la Biblioteca Histórica para evaluar su grado de conocimiento y satisfacción en relación a los compromisos de calidad adquiridos con la ciudadanía a través de la “ Carta de Servicios de la Biblioteca Histórica Municipal, Biblioteca Musical Víctor Espinós y Hemeroteca Municipal ”. Los resultados de esta encuesta en el año 2023 se muestran en este conjunto de datos aportando tanto las preguntas como las respuestas obtenidas de forma anónima. 
 
-Sea `data_original` el data frame obtenido. Su dimensión es de 106 filas y 14 columnas.
+Contiene datos cuantitativos (frecuencia), cualitativos (interés o finalidad) y ordinales (valoraciones del 0 al 10).
+
+Trabajaremos con la tabla de datos ordenados `data_biblio`. Su dimensión es de 68 filas y 29 columnas.
 
 ```{r, echo: false, message=FALSE}
-data_original <- read_csv("actual_adopcio.csv")
+data_biblio <- read.csv("biblioteca_historica_2023.csv", header = TRUE, sep = ";")
 ```
-```{r, echo=FALSE, output=FALSE}
-head(data_original)
-```
-
-Hay 106 animales registrados. 
-
-De cada uno se indica año de referencia, código de referencia, edad en años y meses, fecha de entrada, raza, si es peligroso, sexo, capa de color, tamaño, nombre, observaciones y link con foto del animal.
-
-Para el estudio, consideramos los 106 individuos y las 6 variables siguientes:
-
-
-### Edad
-
-La edad es dada en años y meses (ej: 1 año y 3 meses). La guardamos en meses (ej: 15 meses). Es una variable numérica.
 
 ```{r, echo=FALSE}
-data_original$EDAT = 12*data_original$EDAT_ANYS + data_original$EDAT_MESOS
-data_original$EDAT = as.numeric(data_original$EDAT)
+colnames(data_biblio) <- c("Inicio_encuesta", "Finalidad", "Frecuencia", "Uso_consulta_sala", "Valoracion_consulta_sala", "Valoracion_tiempo_espera", "Uso_repografia", "Valoracion_repografia", "Participacion_actividades", "Valoracion_actividades", "Uso_reserva_doc", "Valoracion_reserva_doc", "Conoce_web", "Valoracion_actualización_info_contenidos", "Valoracion_facil_buscar_catalogo", "Valoracion_facil_localizar_obras_digital", "Valoracion_tiempo_descarga_doc_digital", "Valoracion_edificio_instalaciones", "Valoracion_horario_apertura", "Valoracion_info_recibida", "Valoracion_red_wifi", "Valoracion_trato_atencion", "Valoracion_proceso_carnes", "Valoracion_adecuacion_necesidades", "Valoracion_general", "Sugerencias", "Servivio_respecto_esperado", "Rango_edad", "Sexo")
+```
+
+```{r, echo=FALSE, message=FALSE}
+kable(head(data_biblio))
 ```
 
 
-### Fecha de entrada
+Hay 68 individuos registrados. Para el estudio, consideramos las variables siguientes.
 
-Fecha de entrada al centro, en formato AAAA/MM/DD.
+### Finalidad
 
+¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal? 
 
-### Raza
+Dato cualitativo. Es un factor. Hay 4 categorías: Interés personal, Investigación y estudio, Interés profesional y Ocio.
 
 ```{r, echo=FALSE, output=FALSE}
-data_original$CODI_RACA = as.factor(data_original$CODI_RACA)
-
-levels(data_original$CODI_RACA)
-
-sum(data_original$CODI_RACA == "INDE")
+data_biblio$Finalidad = as.factor(data_biblio$Finalidad)
+levels(data_biblio$Finalidad)
 ```
 
-Es un factor. Hay 10 categorías, 9 razas definidas y 32 animales con raza indefinida (INDE). 
+### Frecuencia
 
-Las 9 razas conocidas son:
+¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica? 
 
-- PIT BULL TERRIER AMERICÀ (PITB) 
-
-- AMERICAN BULLY (AMBU) 
-
-- STAFFORDSHIRE TERRIER AM. (STAR) 
-
-- BULL TERRIER (BULL) 
-
-- MASTI (MAST) 
-
-- ROTTWEILER (ROTT) 
-
-- EUROPEA (EURO) 
-
-- PASTOR BELGA (PBEL) 
-
-- PASTOR ALEMANY (PALE)
-
-
-### Peligroso
-
-Es un factor. Hay dos categorías: Sí (S) y No (N).
+Dato cuantitativo. Es una variable numérica que indica el número de veces que han acudido a la Biblioteca Histórica el último año.
 
 ```{r, echo=FALSE}
-data_original$PERILLOS = as.factor(data_original$PERILLOS)
+data_biblio$Frecuencia = as.numeric(data_biblio$Frecuencia)
 ```
 
+
+### Valoracion general
+
+¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios? 
+
+Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+
+
+### Rango edad
+
+¿En cuál de los siguientes grupos de edad se encuentra usted? 
+
+Es un factor, variable cualitativa. Hay 4 niveles: De 18 a 29 años, De 30 a 44 años, De 45 a 64 años y Más de 65 años.
+
+```{r, echo=FALSE, output=FALSE}
+data_biblio$Rango_edad = as.factor(data_biblio$Rango_edad)
+levels(data_biblio$Rango_edad)
+```
 
 ### Sexo
 
-Es un factor. Hay dos categorías: Macho (M) y Hembra (F).
+Es un factor con dos categorías: Mujer y Hombre.
 
 ```{r, echo=FALSE}
-data_original$SEXE = as.factor(data_original$SEXE)
+data_biblio$Sexo = as.factor(data_biblio$Sexo)
 ```
 
 
-### Tamaño
+## Objetivos
 
-Es un factor. Hay dos categorías: Grande (G) y Mediano (M).
+Presentamos los objetivos planteados. 
 
-```{r, echo=FALSE}
-data_original$TAMANY = as.factor(data_original$TAMANY)
-```
-
-
-## Tabla ordenada
-
-Trabajaremos con la tabla de datos ordenados `data_animales`, de dimensión 106 filas y 6 columnas.
-
-```{r}
-data_animales = subset(data_original, ,c("EDAT", "DIA_ENTRADA", "CODI_RACA", "PERILLOS", "SEXE", "TAMANY"))
-```
-
-```{r, echo=FALSE}
-kable(head(data_animales))
-```
+- ¿Cuál es la principal finalidad con que se dirigen habitualmente a la Biblioteca Histórica Municipal? 
 
 ## Análisis
 
-Representamos gráficamente cuántos animales de cada raza hay.
+Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.
 
 ```{r, echo=FALSE, warning=FALSE}
-ggplot(data_animales, aes(x=data_animales$CODI_RACA)) +
+ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
   geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))
 ```
 
-De entre los animales de raza definida, la que predomina es la EUROPEA (EURO), seguida del STAFFORDSHIRE TERRIER AM. (STAR) y el PIT BULL TERRIER AMERICÀ (PITB).
+La finalidad principal es Investigación y estudio.
 
+## Conclusiones
 
+La finalidad principal es Investigación y estudio.

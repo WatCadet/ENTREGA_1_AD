@@ -14,12 +14,11 @@ library(tidyverse)
 library(knitr)
 ```
 
-Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023.
-Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.
+Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023. Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.
 
 ## Descripción de los datos
 
-Se han recogido datos del interés, frecuencia de uso, grado de conocimiento y satisfacción de los usuarios de la Biblioteca Histórica Municipal de Madrid en relación a los servicios prestados. Anualmente se realiza una encuesta de satisfacción a las personas usuarias de la Biblioteca Histórica para evaluar su grado de conocimiento y satisfacción en relación a los compromisos de calidad adquiridos con la ciudadanía a través de la “ Carta de Servicios de la Biblioteca Histórica Municipal, Biblioteca Musical Víctor Espinós y Hemeroteca Municipal ”. Los resultados de esta encuesta en el año 2023 se muestran en este conjunto de datos aportando tanto las preguntas como las respuestas obtenidas de forma anónima. 
+Se han recogido datos del interés, frecuencia de uso, grado de conocimiento y satisfacción de los usuarios de la Biblioteca Histórica Municipal de Madrid en relación a los servicios prestados. Anualmente se realiza una encuesta de satisfacción a las personas usuarias de la Biblioteca Histórica para evaluar su grado de conocimiento y satisfacción en relación a los compromisos de calidad adquiridos con la ciudadanía a través de la “ Carta de Servicios de la Biblioteca Histórica Municipal, Biblioteca Musical Víctor Espinós y Hemeroteca Municipal ”. Los resultados de esta encuesta en el año 2023 se muestran en este conjunto de datos aportando tanto las preguntas como las respuestas obtenidas de forma anónima.
 
 Contiene datos cuantitativos (frecuencia), cualitativos (interés o finalidad) y ordinales (valoraciones del 0 al 10).
 
@@ -37,12 +36,11 @@ colnames(data_biblio) <- c("Inicio_encuesta", "Finalidad", "Frecuencia", "Uso_co
 kable(head(data_biblio))
 ```
 
-
 Hay 68 individuos registrados. Para el estudio, consideramos las variables siguientes.
 
 ### Finalidad
 
-¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal? 
+¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal?
 
 Dato cualitativo. Es un factor. Hay 4 categorías: Interés personal, Investigación y estudio, Interés profesional y Ocio.
 
@@ -53,7 +51,7 @@ levels(data_biblio$Finalidad)
 
 ### Frecuencia
 
-¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica? 
+¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica?
 
 Dato cuantitativo. Es una variable numérica que indica el número de veces que han acudido a la Biblioteca Histórica el último año.
 
@@ -61,17 +59,15 @@ Dato cuantitativo. Es una variable numérica que indica el número de veces que 
 data_biblio$Frecuencia = as.numeric(data_biblio$Frecuencia)
 ```
 
-
 ### Valoracion general
 
-¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios? 
+¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?
 
 Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
 
-
 ### Rango edad
 
-¿En cuál de los siguientes grupos de edad se encuentra usted? 
+¿En cuál de los siguientes grupos de edad se encuentra usted?
 
 Es un factor, variable cualitativa. Hay 4 niveles: De 18 a 29 años, De 30 a 44 años, De 45 a 64 años y Más de 65 años.
 
@@ -88,12 +84,11 @@ Es un factor con dos categorías: Mujer y Hombre.
 data_biblio$Sexo = as.factor(data_biblio$Sexo)
 ```
 
-
 ## Objetivos
 
-Presentamos los objetivos planteados. 
+Presentamos los objetivos planteados.
 
-- ¿Cuál es la principal finalidad con que se dirigen habitualmente a la Biblioteca Histórica Municipal? 
+-   ¿Cuál es la principal finalidad con que se dirigen habitualmente a la Biblioteca Histórica Municipal?
 
 ## Análisis
 
@@ -101,7 +96,8 @@ Representamos gráficamente con qué finalidad se dirigen habitualmente a la Bib
 
 ```{r, echo=FALSE, warning=FALSE}
 ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
-  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))
+  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
+  xlab("Finalidad")+ylab("")
 ```
 
 La finalidad principal es Investigación y estudio.

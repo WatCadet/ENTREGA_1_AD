@@ -1,13 +1,13 @@
 ---
 title: "ENTREGA 1 Análisis de Datos"
 format: html
-editor: visual
 author: 
   - Carlos Aliño
   - Dídac Capó
   - Irene Rodríguez
-  - Repositorio Público: https://github.com/WatCadet/ENTREGA_1_AD
 ---
+
+[Ver en GitHub](https://github.com/WatCadet/ENTREGA_1_AD)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -15,7 +15,7 @@ library(tidyverse)
 library(knitr)
 ```
 
-Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023. 
+Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023.
 
 Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.
 
@@ -51,21 +51,21 @@ Dato cuantitativo. Es una variable numérica que indica el número de veces que 
 data_biblio$Frecuencia = as.numeric(data_biblio$Frecuencia)
 ```
 
-
 ```{r}
 table(data_biblio$Frecuencia)
 ```
-
 
 ```{r}
 median(data_biblio$Frecuencia)
 ```
 
-Tanto la moda como la mediana es de 1 vez en el último año. Veamos cómo están distribuidos los datos.
+Observando la dos `chunks` anteriores vemos que tanto la moda como la mediana es de 1 vez en el último año. Veamos en el siguiente `boxplot` cómo están distribuidos los datos.
 
 ```{r, echo=FALSE}
 boxplot(data_biblio$Frecuencia, col = "lightgreen", main = "Frecuencia", ylab = "Nº veces útlimo año")
 ```
+
+Observamos, al igual que en la tabla inicial, que la mayoría de los individuos visita la Biblioteca Histórica Municipal solo una vez al año. Además, el gráfico resalta claramente la presencia de datos extremos.
 
 ### Finalidad
 
@@ -78,18 +78,20 @@ data_biblio$Finalidad = as.factor(data_biblio$Finalidad)
 levels(data_biblio$Finalidad)
 ```
 
-
 ```{r}
 table(data_biblio$Finalidad)
 ```
 
-La moda es Investigación y estudio. Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.
+La moda es Investigación y estudio. Representamos gráficamente con un `barplot` con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.
 
 ```{r, echo=FALSE, warning=FALSE}
-ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
-  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
-  xlab("Finalidad")+ylab("")
+ggplot(data_biblio, aes(x=Finalidad)) +
+  geom_bar(col="black", fill="aquamarine1") +
+  xlab("Finalidad") + 
+  ylab("")
+
 ```
+Efectivamente, se puede apreciar que la investigación y el estudio predominan.
 
 ### Rango edad
 
@@ -127,11 +129,13 @@ ggplot(data_biblio_summary, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fi
 
 ```
 
+Es evidente que los rangos de colores predominantes son los mencionados anteriormente.
 
 ### Sexo
+
 Por favor, indíquenos su sexo.
 
-Es un factor con dos categorías: Femenino y Masculino. Veamos un gráfico que lo representa.
+Es un factor con dos categorías: Femenino y Masculino. Cabe destacar que se permite no contestar. Veamos un gráfico que lo representa.
 
 ```{r, echo=FALSE, output=FALSE}
 data_biblio$Sexo = as.factor(data_biblio$Sexo)
@@ -144,11 +148,14 @@ table(data_biblio$Sexo)
 pie(table(data_biblio$Sexo), main = "Individuos por Sexo", labels = c("No indicado (32)", "Femenino (12)", "Masculino (24)"))
 ```
 
+El gráfico de pastel anterior muestra la distribución de individuos según su sexo.
+Cada porción está etiquetada con el número de individuos y tiene un color diferente para distinguir las categorías. Además, este evidencia que la mayor parte de los individuos no indicaron el sexo.
+
 ### Valoracion general
 
 ¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?
 
-Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena). Veamos la distribución a partir del siguiente `barplot`: 
 
 ```{r, echo=FALSE}
 data_biblio$Valoracion_general = as.numeric(data_biblio$Valoracion_general)
@@ -196,6 +203,7 @@ data_biblio$Valoracion_trato_atencion = as.numeric(data_biblio$Valoracion_trato_
   geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
   xlab("Valoración Trato y Atención")+ylab("")
 ```
+
 ```{r}
 table(data_biblio$Valoracion_trato_atencion)
 ```
@@ -309,7 +317,7 @@ ggplot(data_biblio, aes(x = Sexo, y = Valoracion_trato_atencion, fill = Sexo)) +
   theme_minimal()
 ```
 
-Todos los usuarios valoran bien el trato y atención recibidos. Ahora bien, todas las mujeres lo han valorado muy bien (entre 9 y 10) mientras que los usuarios que lo han valorado entre 6 y 8 son hombres.
+Todos los usuarios valoran positivamente el trato y la atención recibidos. Sin embargo, todas las mujeres lo han calificado de manera excelente, con puntuaciones entre 9 y 10. En cambio, las valoraciones entre 6 y 8 corresponden mayoritariamente a hombres. Los usuarios que no especifican su sexo, en su mayoría, también valoran bien el trato recibido. 
 
 ### Valoración del tiempo de descarga de documentos digitalizados y Rango de edad
 
@@ -337,3 +345,5 @@ En conclusión, las respuestas a las preguntas iniciales son las siguientes:
 -   La mayoría de usuarios ha valorado bien el horario de apertura. Los que lo han valorado negativamente tienen entre 30 y 44 años.
 
 -   Todos los usuarios valoran bien el trato y atención recibidos.
+
+- La satisfacción con el tiempo de descarga de documentos es en general positiva, aunque las personas mayores tienden a otorgar una valoración más baja.

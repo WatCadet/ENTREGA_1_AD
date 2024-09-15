@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -118,6 +118,14 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carlos Aliño </p>
+             <p>Dídac Capó </p>
+             <p>Irene Rodríguez </p>
+          </div>
+  </div>
     
   
     
@@ -128,6 +136,7 @@ window.Quarto = {
 </header>
 
 
+<p><a href="https://github.com/WatCadet/ENTREGA_1_AD">Ver en GitHub</a></p>
 <p>Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023.</p>
 <p>Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.</p>
 <section id="descripción-de-los-datos" class="level2">
@@ -137,7 +146,7 @@ window.Quarto = {
 <p>Trabajaremos con la tabla de datos ordenados <code>data_biblio</code>. Su dimensión es de 68 filas y 29 columnas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 2%">
 <col style="width: 2%">
@@ -412,7 +421,7 @@ window.Quarto = {
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-<p>Tanto la moda como la mediana es de 1 vez en el último año. Veamos cómo están distribuidos los datos.</p>
+<p>Observando la dos <code>chunks</code> anteriores vemos que tanto la moda como la mediana es de 1 vez en el último año. Veamos en el siguiente <code>boxplot</code> cómo están distribuidos los datos.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -422,6 +431,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>Observamos, al igual que en la tabla inicial, que la mayoría de los individuos visita la Biblioteca Histórica Municipal solo una vez al año. Además, el gráfico resalta claramente la presencia de datos extremos.</p>
 </section>
 <section id="finalidad" class="level3">
 <h3 class="anchored" data-anchor-id="finalidad">Finalidad</h3>
@@ -437,7 +447,7 @@ window.Quarto = {
                       1 </code></pre>
 </div>
 </div>
-<p>La moda es Investigación y estudio. Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.</p>
+<p>La moda es Investigación y estudio. Representamos gráficamente con un <code>barplot</code> con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -447,6 +457,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>Efectivamente, se puede apreciar que la investigación y el estudio predominan.</p>
 </section>
 <section id="rango-edad" class="level3">
 <h3 class="anchored" data-anchor-id="rango-edad">Rango edad</h3>
@@ -470,11 +481,12 @@ De 18 a 29 años De 30 a 44 años De 45 a 64 años  Más de 65 años
 </div>
 </div>
 </div>
+<p>Es evidente que los rangos de colores predominantes son los mencionados anteriormente.</p>
 </section>
 <section id="sexo" class="level3">
 <h3 class="anchored" data-anchor-id="sexo">Sexo</h3>
 <p>Por favor, indíquenos su sexo.</p>
-<p>Es un factor con dos categorías: Femenino y Masculino. Veamos un gráfico que lo representa.</p>
+<p>Es un factor con dos categorías: Femenino y Masculino. Cabe destacar que se permite no contestar. Veamos un gráfico que lo representa.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -484,11 +496,12 @@ De 18 a 29 años De 30 a 44 años De 45 a 64 años  Más de 65 años
 </div>
 </div>
 </div>
+<p>El gráfico de pastel anterior muestra la distribución de individuos según su sexo. Cada porción está etiquetada con el número de individuos y tiene un color diferente para distinguir las categorías. Además, este evidencia que la mayor parte de los individuos no indicaron el sexo.</p>
 </section>
 <section id="valoracion-general" class="level3">
 <h3 class="anchored" data-anchor-id="valoracion-general">Valoracion general</h3>
 <p>¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?</p>
-<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
+<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena). Veamos la distribución a partir del siguiente <code>barplot</code>:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -650,26 +663,26 @@ X-squared = 19.606, df = 15, p-value = 0.1876</code></pre>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="cn">NULL</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1733653</code></pre>
+<pre><code>[1] 0.1617676</code></pre>
 </div>
 </div>
 <p>Vamos a repetir el proceso 3 veces más:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.174765</code></pre>
+<pre><code>[1] 0.165167</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.165167</code></pre>
+<pre><code>[1] 0.170166</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1667666</code></pre>
+<pre><code>[1] 0.1715657</code></pre>
 </div>
 </div>
 <p>Considerando la interpretación usual <span class="math inline">\(\alpha = 0.05\)</span> el p-valor es sistemáticamente grande, lo que nos permite rechazar la hipótesis inicial de que las variables son dependientes.</p>
@@ -686,7 +699,7 @@ X-squared = 19.606, df = 15, p-value = 0.1876</code></pre>
 </div>
 </div>
 </div>
-<p>Todos los usuarios valoran bien el trato y atención recibidos. Ahora bien, todas las mujeres lo han valorado muy bien (entre 9 y 10) mientras que los usuarios que lo han valorado entre 6 y 8 son hombres.</p>
+<p>Todos los usuarios valoran positivamente el trato y la atención recibidos. Sin embargo, todas las mujeres lo han calificado de manera excelente, con puntuaciones entre 9 y 10. En cambio, las valoraciones entre 6 y 8 corresponden mayoritariamente a hombres. Los usuarios que no especifican su sexo, en su mayoría, también valoran bien el trato recibido.</p>
 </section>
 <section id="valoración-del-tiempo-de-descarga-de-documentos-digitalizados-y-rango-de-edad" class="level3">
 <h3 class="anchored" data-anchor-id="valoración-del-tiempo-de-descarga-de-documentos-digitalizados-y-rango-de-edad">Valoración del tiempo de descarga de documentos digitalizados y Rango de edad</h3>
@@ -712,6 +725,7 @@ X-squared = 19.606, df = 15, p-value = 0.1876</code></pre>
 <li><p>Las personas de 18 a 29 años ofrecen una valoración general más alta, mientras que los otros grupos muestran mayor dispersión; sin embargo, el test de independencia indica que las variables de rango de edad y valoración general son independientes.</p></li>
 <li><p>La mayoría de usuarios ha valorado bien el horario de apertura. Los que lo han valorado negativamente tienen entre 30 y 44 años.</p></li>
 <li><p>Todos los usuarios valoran bien el trato y atención recibidos.</p></li>
+<li><p>La satisfacción con el tiempo de descarga de documentos es en general positiva, aunque las personas mayores tienden a otorgar una valoración más baja.</p></li>
 </ul>
 </section>
 

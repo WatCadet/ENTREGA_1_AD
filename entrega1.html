@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -118,14 +118,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Authors</div>
-    <div class="quarto-title-meta-contents">
-             <p>Carlos Aliño </p>
-             <p>Dídac Capó </p>
-             <p>Irene Rodríguez </p>
-          </div>
-  </div>
     
   
     
@@ -136,7 +128,8 @@ window.Quarto = {
 </header>
 
 
-<p>Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023. Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.</p>
+<p>Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023.</p>
+<p>Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.</p>
 <section id="descripción-de-los-datos" class="level2">
 <h2 class="anchored" data-anchor-id="descripción-de-los-datos">Descripción de los datos</h2>
 <p>Se han recogido datos del interés, frecuencia de uso, grado de conocimiento y satisfacción de los usuarios de la Biblioteca Histórica Municipal de Madrid en relación a los servicios prestados. Anualmente se realiza una encuesta de satisfacción a las personas usuarias de la Biblioteca Histórica para evaluar su grado de conocimiento y satisfacción en relación a los compromisos de calidad adquiridos con la ciudadanía a través de la “ Carta de Servicios de la Biblioteca Histórica Municipal, Biblioteca Musical Víctor Espinós y Hemeroteca Municipal ”. Los resultados de esta encuesta en el año 2023 se muestran en este conjunto de datos aportando tanto las preguntas como las respuestas obtenidas de forma anónima.</p>
@@ -144,7 +137,7 @@ window.Quarto = {
 <p>Trabajaremos con la tabla de datos ordenados <code>data_biblio</code>. Su dimensión es de 68 filas y 29 columnas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <colgroup>
 <col style="width: 2%">
 <col style="width: 2%">
@@ -405,22 +398,21 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="frecuencia">Frecuencia</h3>
 <p>¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica?</p>
 <p>Dato cuantitativo. Es una variable numérica que indica el número de veces que han acudido a la Biblioteca Histórica el último año.</p>
-<p>Tanto la moda como la mediana es de 1 vez en el último año. Veamos cómo están distribuidos los datos.</p>
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="entrega1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_biblio<span class="sc">$</span>Frecuencia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 0  1  2  3  4  5  6  7 10 15 40 
+19 29  9  4  1  1  1  1  1  1  1 </code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(data_biblio<span class="sc">$</span>Frecuencia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
 </div>
-</section>
-<section id="finalidad" class="level3">
-<h3 class="anchored" data-anchor-id="finalidad">Finalidad</h3>
-<p>¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal?</p>
-<p>Dato cualitativo. Es un factor. Hay 4 categorías: Interés personal, Investigación y estudio, Interés profesional y Ocio.</p>
-<p>La moda es Investigación y estudio, la finalidad principal es Investigación y estudio. Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.</p>
+</div>
+<p>Tanto la moda como la mediana es de 1 vez en el último año. Veamos cómo están distribuidos los datos.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -431,82 +423,44 @@ window.Quarto = {
 </div>
 </div>
 </section>
+<section id="finalidad" class="level3">
+<h3 class="anchored" data-anchor-id="finalidad">Finalidad</h3>
+<p>¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal?</p>
+<p>Dato cualitativo. Es un factor. Hay 4 categorías: Interés personal, Investigación y estudio, Interés profesional y Ocio.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_biblio<span class="sc">$</span>Finalidad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+       Interés personal     Interés profesional Investigación y estudio 
+                      5                       5                      57 
+                   Ocio 
+                      1 </code></pre>
+</div>
+</div>
+<p>La moda es Investigación y estudio. Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="rango-edad" class="level3">
 <h3 class="anchored" data-anchor-id="rango-edad">Rango edad</h3>
 <p>¿En cuál de los siguientes grupos de edad se encuentra usted?</p>
 <p>Es un factor, variable cualitativa. Hay 4 niveles: De 18 a 29 años, De 30 a 44 años, De 45 a 64 años y Más de 65 años.</p>
-<p>Veamos el siguiente gráfico:</p>
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="entrega1_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_biblio<span class="sc">$</span>Rango_edad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+De 18 a 29 años De 30 a 44 años De 45 a 64 años  Más de 65 años 
+              8              14              26              20 </code></pre>
 </div>
 </div>
-</div>
-<p>Hablar de la moda (si es única).</p>
-</section>
-<section id="sexo" class="level3">
-<h3 class="anchored" data-anchor-id="sexo">Sexo</h3>
-<p>Es un factor con dos categorías: Femenino y Masculino.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="entrega1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="entrega1_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="valoracion-general" class="level3">
-<h3 class="anchored" data-anchor-id="valoracion-general">Valoracion general</h3>
-<p>¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?</p>
-<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
-<p>Indicar moda (si es única) y hacer gráfico.</p>
-</section>
-<section id="valoracion-horario-apertura" class="level3">
-<h3 class="anchored" data-anchor-id="valoracion-horario-apertura">Valoracion Horario Apertura</h3>
-<p>¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?</p>
-<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
-</section>
-<section id="valoracion-trato-y-atención" class="level3">
-<h3 class="anchored" data-anchor-id="valoracion-trato-y-atención">Valoracion Trato y atención</h3>
-<p>¿Cuál es su valoración del trato y la atención recibidos?</p>
-<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
-</section>
-</section>
-<section id="objetivos" class="level2">
-<h2 class="anchored" data-anchor-id="objetivos">Objetivos</h2>
-<p>Presentamos los objetivos planteados.</p>
-<ul>
-<li>Analizar la relación entre la valoración del horario de apertura y el rango de edad</li>
-<li>Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios segun el rango de edad.</li>
-<li>Analizar la relación entre la valoración del tiempo de descarga de los documentos digitalizados y el rango de edad</li>
-</ul>
-</section>
-<section id="análisis" class="level2">
-<h2 class="anchored" data-anchor-id="análisis">Análisis</h2>
-<p>Analicemos la relación entre la valoración del horario de apertura y el rango de edad. Consideremos el siguiente gráfico de violín.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="entrega1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>La mayoría de usuarios lo ha valorado bien. Los usuarios que han valorado negativamente el horario de apertura están en el rango de edad de 30 a 44 años.</p>
-<p>Pasemos ahora a analizar las respuestas sobre el nivel de satisfacción con la Biblioteca Histórica y sus servicios y veamos si existen diferencias significativas en la valoración entre diferentes edades. Para ello visualizemos el siguiente gráfico de violín.</p>
+<p>La moda del rango de edad de los usuarios es el intervalo de 45 a 64 años, seguido por el grupo de mayores de 65 años. Veamos el siguiente gráfico:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -516,12 +470,158 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</section>
+<section id="sexo" class="level3">
+<h3 class="anchored" data-anchor-id="sexo">Sexo</h3>
+<p>Por favor, indíquenos su sexo.</p>
+<p>Es un factor con dos categorías: Femenino y Masculino. Veamos un gráfico que lo representa.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="valoracion-general" class="level3">
+<h3 class="anchored" data-anchor-id="valoracion-general">Valoracion general</h3>
+<p>¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?</p>
+<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_biblio<span class="sc">$</span>Valoracion_general)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 5  6  7  8  9 10 
+ 1  1  5  6 17 38 </code></pre>
+</div>
+</div>
+<p>Vemos que la moda es el 10 de una manera muy destacada, con 38 apariciones.</p>
+</section>
+<section id="valoracion-horario-apertura" class="level3">
+<h3 class="anchored" data-anchor-id="valoracion-horario-apertura">Valoracion horario apertura</h3>
+<p>¿Cuál es su valoración del horario de apertura de la Biblioteca Histórica?</p>
+<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_biblio<span class="sc">$</span>Valoracion_horario_apertura)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 2  5  6  7  8  9 10 
+ 1  2  5  6 12 14 21 </code></pre>
+</div>
+</div>
+<p>Vemos que la moda vuelve a ser el 10.</p>
+</section>
+<section id="valoracion-trato-y-atención" class="level3">
+<h3 class="anchored" data-anchor-id="valoracion-trato-y-atención">Valoracion trato y atención</h3>
+<p>¿Cuál es su valoración del trato y la atención recibidos?</p>
+<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_biblio<span class="sc">$</span>Valoracion_trato_atencion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 6  7  8  9 10 
+ 1  1  4 13 44 </code></pre>
+</div>
+</div>
+<p>De nuevo la moda es el 10.</p>
+</section>
+<section id="valoracion-tiempo-de-descarga" class="level3">
+<h3 class="anchored" data-anchor-id="valoracion-tiempo-de-descarga">Valoracion tiempo de descarga</h3>
+<p>¿Cuál es su valoración del tiempo de descarga de los documentos digitalizados?</p>
+<p>Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data_biblio<span class="sc">$</span>Valoracion_tiempo_descarga_doc_digital)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 5  6  7  8  9 10 
+ 1  2  3 14 13 26 </code></pre>
+</div>
+</div>
+<p>La moda es el 10.</p>
+</section>
+</section>
+<section id="objetivos" class="level2">
+<h2 class="anchored" data-anchor-id="objetivos">Objetivos</h2>
+<p>Presentamos los objetivos planteados.</p>
+<ul>
+<li>Analizar la relación entre la valoración del horario de apertura y el rango de edad.</li>
+<li>Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios segun el rango de edad.</li>
+<li>Analizar la relación entre la valoración del trato y atención recibidos y el sexo.</li>
+<li>Analizar la relación entre la valoración del tiempo de descarga de los documentos digitalizados y el rango de edad.</li>
+</ul>
+</section>
+<section id="análisis" class="level2">
+<h2 class="anchored" data-anchor-id="análisis">Análisis</h2>
+<section id="valoración-horario-de-apertura-y-rango-de-edad" class="level3">
+<h3 class="anchored" data-anchor-id="valoración-horario-de-apertura-y-rango-de-edad">Valoración horario de apertura y Rango de edad</h3>
+<p>Analicemos la relación entre la valoración del horario de apertura y el rango de edad. Consideremos el siguiente gráfico de violín.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La mayoría de usuarios lo ha valorado bien. Los usuarios que han valorado negativamente el horario de apertura están en el rango de edad de 30 a 44 años.</p>
+</section>
+<section id="valoración-general-y-rango-de-edad" class="level3">
+<h3 class="anchored" data-anchor-id="valoración-general-y-rango-de-edad">Valoración general y Rango de edad</h3>
+<p>Pasemos ahora a analizar las respuestas sobre el nivel de satisfacción con la Biblioteca Histórica y sus servicios y veamos si existen diferencias significativas en la valoración entre diferentes edades. Para ello visualizemos el siguiente gráfico de violín.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>Las personas de 18 a 29 años tienden a dar valoraciones más altas, con menos variabilidad. En cambio, los otros grupos presenta mayor dispersión, con valoraciones tanto altas como bajas, sugiriendo una percepción más diversa sobre los servicios de la Biblioteca Histórica.</p>
 <p>Dado que observamos diferencias en las valoraciones según el rango de edad, surge la hipótesis de que el nivel de satisfacción podría estar relacionado con la edad. Para confirmar si estas diferencias son estadísticamente significativas y no solo aleatorias, es adecuado realizar un test de independencia, lo que nos permitirá determinar si existe una relación entre el rango de edad y el nivel de satisfacción.</p>
 <p>Para ello hacemos una tabla de contingéncia de las dos variables a estudiar:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tabla<span class="ot">=</span><span class="fu">table</span>(data_biblio<span class="sc">$</span>Rango_edad,data_biblio<span class="sc">$</span>Valoracion_general)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tabla</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tabla<span class="ot">=</span><span class="fu">table</span>(data_biblio<span class="sc">$</span>Rango_edad,data_biblio<span class="sc">$</span>Valoracion_general)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tabla</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 
                    5  6  7  8  9 10
@@ -533,7 +633,7 @@ window.Quarto = {
 </div>
 <p>La funcion <code>chisq.test</code> aplicada a una tabla nos hace el test de independencia.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in chisq.test(tabla): Chi-squared approximation may be incorrect</code></pre>
 </div>
@@ -547,51 +647,69 @@ X-squared = 19.606, df = 15, p-value = 0.1876</code></pre>
 </div>
 <p>Nos fijamos que nos salta un <code>Warning</code>, esto se debe a que hay almenos una frecuencia esperada inferior a 5. Por lo tanto, el <code>chisq.test</code> no es fiable. Por esta razón vamos a estimar el p-valor del test de independencia mediante simulaciones.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="cn">NULL</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1675665</code></pre>
-</div>
-</div>
-<p>Vamos a repetir el proceso 3 veces más:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="cn">NULL</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1733653</code></pre>
 </div>
 </div>
+<p>Vamos a repetir el proceso 3 veces más:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1689662</code></pre>
+<pre><code>[1] 0.174765</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1807638</code></pre>
+<pre><code>[1] 0.165167</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla,<span class="at">simulate.p.value=</span><span class="cn">TRUE</span>,<span class="at">B=</span><span class="dv">5000</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1667666</code></pre>
 </div>
 </div>
 <p>Considerando la interpretación usual <span class="math inline">\(\alpha = 0.05\)</span> el p-valor es sistemáticamente grande, lo que nos permite rechazar la hipótesis inicial de que las variables son dependientes.</p>
+</section>
+<section id="sexo-y-valoración-del-trato-y-atención-recibidos" class="level3">
+<h3 class="anchored" data-anchor-id="sexo-y-valoración-del-trato-y-atención-recibidos">Sexo y Valoración del trato y atención recibidos</h3>
 <p>Estudiemos la relación entre la valoración del trato y atención recibidos y el sexo de los individuos. Lo vemos representado en el siguiente gráfico de violín.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="entrega1_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="entrega1_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Todos los usuarios valoran bien el trato y atención recibidos. Ahora bien, todas las mujeres lo han valorado muy bien (entre 9 y 10) mientras que los usuarios que lo han valorado entre 6 y 8 son hombres.</p>
 </section>
+<section id="valoración-del-tiempo-de-descarga-de-documentos-digitalizados-y-rango-de-edad" class="level3">
+<h3 class="anchored" data-anchor-id="valoración-del-tiempo-de-descarga-de-documentos-digitalizados-y-rango-de-edad">Valoración del tiempo de descarga de documentos digitalizados y Rango de edad</h3>
+<p>Finalmente analicemos la relación entre la valoración del tiempo de descarga de los documentos digitalizados y el rango de edad mediante la siguiente representación en un gráfico de violín:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="entrega1_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>En general todos los usuarios han valorado bien el tiempo de descarga de los documentos digitalizados, pero vemos que las personas de 18 a 29 años tienen valoraciones más altas y con menos dispersión. En cambio, los otros grupos varían más, sobre todo el grupo de mayores de 65 años, sugiriendo una percepción más dividida respecto a la velocidad de descarga de los documentos digitalizados.</p>
+</section>
+</section>
 <section id="conclusiones" class="level2">
 <h2 class="anchored" data-anchor-id="conclusiones">Conclusiones</h2>
-<p>En resumen, las respuestas a las preguntas iniciales son las siguientes:</p>
+<p>En conclusión, las respuestas a las preguntas iniciales son las siguientes:</p>
 <ul>
 <li><p>Los usuarios han acudido de mediana 1 vez a la Biblioteca Histórica Municipales en el último año.</p></li>
 <li><p>La finalidad principal con que se dirigen habitualmente a la Biblioteca Histórica Municipales es Investigación y estudio.</p></li>
-<li><p>Las personas de 18 a 29 años ofrecen valoraciones más altas, mientras que los otros grupos muestran mayor dispersión; sin embargo, el test de independencia indica que las variables de rango de edad y valoración general son independientes.</p></li>
+<li><p>Las personas de 18 a 29 años ofrecen una valoración general más alta, mientras que los otros grupos muestran mayor dispersión; sin embargo, el test de independencia indica que las variables de rango de edad y valoración general son independientes.</p></li>
 <li><p>La mayoría de usuarios ha valorado bien el horario de apertura. Los que lo han valorado negativamente tienen entre 30 y 44 años.</p></li>
 <li><p>Todos los usuarios valoran bien el trato y atención recibidos.</p></li>
 </ul>

@@ -84,6 +84,7 @@ ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
 ```{r, echo=FALSE, output=FALSE}
 data_biblio$Rango_edad = as.factor(data_biblio$Rango_edad)
 levels(data_biblio$Rango_edad)
+table(data_biblio$Rango_edad)
 ```
 
 Es un factor, variable cualitativa. Hay 4 niveles: De 18 a 29 años, De 30 a 44 años, De 45 a 64 años y Más de 65 años.
@@ -109,9 +110,7 @@ ggplot(data_biblio_summary, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fi
 
 ```
 
-
-
-Hablar de la moda (si es única).
+Vemos que la moda del rango de edad de los usuarios es el intervalo de 45 a 64 años, seguido por el grupo de mayores de 65 años.
 
 ### Sexo
 
@@ -134,19 +133,70 @@ pie(table(data_biblio$Sexo), labels = c("No indicado (32)", "Femenino (12)", "Ma
 
 Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
 
-Indicar moda (si es única) y hacer gráfico.
+```{r, echo=FALSE, output=FALSE}
+data_biblio$Valoracion_general = as.numeric(data_biblio$Valoracion_general)
+
+ggplot(data_biblio, aes(x=factor(data_biblio$Valoracion_general))) +
+  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
+  xlab("Valoración General")+ylab("")
+
+```
+
+```{r}
+table(data_biblio$Valoracion_general)
+```
+
+Vemos que la moda es el 10 de una manera muy destacada, con 38 apariciones.
 
 ### Valoracion Horario Apertura
 
-¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?
+¿Cuál es su valoración del horario de apertura de la Biblioteca Histórica?
 
 Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+
+```{r, echo=FALSE, output=FALSE}
+data_biblio$Valoracion_horario_apertura = as.numeric(data_biblio$Valoracion_horario_apertura)
+
+ggplot(data_biblio, aes(x=factor(data_biblio$Valoracion_horario_apertura))) +
+  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
+  xlab("Valoración Horario Apertura")+ylab("")
+```
+
+```{r}
+table(data_biblio$Valoracion_horario_apertura)
+```
+
+Vemos que la moda vuelve a ser el 10.
 
 ### Valoracion Trato y atención
 
 ¿Cuál es su valoración del trato y la atención recibidos?
 
 Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+
+```{r, echo=FALSE, output=FALSE}
+data_biblio$Valoracion_trato_atencion = as.numeric(data_biblio$Valoracion_trato_atencion)
+
+ggplot(data_biblio, aes(x=factor(data_biblio$Valoracion_trato_atencion))) +
+  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
+  xlab("Valoración Trato y Atención")+ylab("")
+```
+
+De nuevo la moda es el 10.
+
+### Valoracion tiempo de descarga
+
+¿Cuál es su valoración del tiempo de descarga de los documentos digitalizados?
+
+Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+
+```{r, echo=FALSE, output=FALSE}
+data_biblio$Valoracion_tiempo_descarga_doc_digital = as.numeric(data_biblio$Valoracion_tiempo_descarga_doc_digital)
+
+ggplot(data_biblio, aes(x=factor(data_biblio$Valoracion_tiempo_descarga_doc_digital))) +
+  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
+  xlab("Valoración Tiempo de Descarga")+ylab("")
+```
 
 ## Objetivos
 
@@ -217,8 +267,7 @@ chisq.test(tabla,simulate.p.value=TRUE,B=5000)$p.value
 chisq.test(tabla,simulate.p.value=TRUE,B=5000)$p.value
 ```
 
-Considerando la interpretación usual $\alpha = 0.05$ el p-valor es sistemáticamente grande, lo que nos permite rechazar la hipótesis inicial de que las variables son dependientes. 
-
+Considerando la interpretación usual $\alpha = 0.05$ el p-valor es sistemáticamente grande, lo que nos permite rechazar la hipótesis inicial de que las variables son dependientes.
 
 Estudiemos la relación entre la valoración del trato y atención recibidos y el sexo de los individuos. Lo vemos representado en el siguiente gráfico de violín.
 
@@ -230,6 +279,17 @@ ggplot(data_biblio, aes(x = Sexo, y = Valoracion_trato_atencion, fill = Sexo)) +
 ```
 
 Todos los usuarios valoran bien el trato y atención recibidos. Ahora bien, todas las mujeres lo han valorado muy bien (entre 9 y 10) mientras que los usuarios que lo han valorado entre 6 y 8 son hombres.
+
+Finalmente analicemos la relación entre la valoración del tiempo de descarga de los documentos digitalizados y el rango de edad mediante la siguiente representación en un gráfico de violín:
+
+```{r,echo=FALSE, warning=FALSE}
+ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_tiempo_descarga_doc_digital, fill = Rango_edad)) +
+  geom_violin() +
+  labs(x = "Rango edad", y = "Valoración Tiempo Descarga", title = "Comparación de Valoración del tiempo de descarga por Edad") +
+  theme_minimal()
+```
+
+En general todos los usuarios han valorado bien el tiempo de descarga de los documentos digitalizados, pero vemos que las personas de 18 a 29 años tienen valoraciones más altas y con menos dispersión. En cambio, los otros grupos varían más, sobre todo el grupo de mayores de 65 años, sugiriendo una percepción más dividida respecto a la velocidad de descarga de los documentos digitalizados.
 
 ## Conclusiones
 

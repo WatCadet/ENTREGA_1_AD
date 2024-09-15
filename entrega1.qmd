@@ -6,6 +6,7 @@ author:
   - Carlos Aliño
   - Dídac Capó
   - Irene Rodríguez
+  - Repositorio Público: https://github.com/WatCadet/ENTREGA_1_AD
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +39,6 @@ kable(head(data_biblio))
 
 Hay 68 individuos registrados. Para el estudio, consideramos algunas variables de interés.
 
-
 ### Frecuencia
 
 ¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica?
@@ -56,6 +56,7 @@ Tanto la moda como la mediana es de 1 vez en el último año. Veamos cómo está
 ```{r, echo=FALSE}
 boxplot(data_biblio$Frecuencia, col = "lightgreen", main = "Frecuencia", ylab = "Nº veces útlimo año")
 ```
+
 ### Finalidad
 
 ¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal?
@@ -67,8 +68,8 @@ data_biblio$Finalidad = as.factor(data_biblio$Finalidad)
 levels(data_biblio$Finalidad)
 table(data_biblio$Finalidad)
 ```
-La moda es Investigación y estudio, la finalidad principal es Investigación y estudio. 
-Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.
+
+La moda es Investigación y estudio, la finalidad principal es Investigación y estudio. Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.
 
 ```{r, echo=FALSE, warning=FALSE}
 ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
@@ -80,18 +81,41 @@ ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
 
 ¿En cuál de los siguientes grupos de edad se encuentra usted?
 
-Es un factor, variable cualitativa. Hay 4 niveles: De 18 a 29 años, De 30 a 44 años, De 45 a 64 años y Más de 65 años.
-
 ```{r, echo=FALSE, output=FALSE}
 data_biblio$Rango_edad = as.factor(data_biblio$Rango_edad)
 levels(data_biblio$Rango_edad)
 ```
 
-Indicar moda (si es única) y hacer gráfico.
+Es un factor, variable cualitativa. Hay 4 niveles: De 18 a 29 años, De 30 a 44 años, De 45 a 64 años y Más de 65 años.
+
+Veamos el siguiente gráfico:
+
+```{r, echo=FALSE}
+
+data_biblio_summary <- data_biblio %>%
+  group_by(Rango_edad) %>%
+  summarise(count = n()) %>%
+  mutate(fraction = count / sum(count),
+         ymax = cumsum(fraction),
+         ymin = c(0, head(ymax, n = -1)))
+
+ggplot(data_biblio_summary, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = factor(Rango_edad))) +
+  geom_rect() +
+  coord_polar(theta = "y") +
+  xlim(c(2, 4)) +
+  labs(title = "Distribución de Personas por Rango de Edad", fill = "Rango de Edad") +
+  theme_void()
+
+
+```
+
+
+
+Hablar de la moda (si es única).
 
 ### Sexo
 
-Es un factor con dos categorías: Femenino y Masculino.  
+Es un factor con dos categorías: Femenino y Masculino.
 
 ```{r, echo=FALSE, output=FALSE}
 data_biblio$Sexo = as.factor(data_biblio$Sexo)
@@ -118,13 +142,11 @@ Indicar moda (si es única) y hacer gráfico.
 
 Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
 
-
 ### Valoracion Trato y atención
 
 ¿Cuál es su valoración del trato y la atención recibidos?
 
 Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
-
 
 ## Objetivos
 
@@ -144,11 +166,12 @@ ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_horario_apertura, fill = 
   labs(x = "Rango edad", y = "Valoración Horario Apertura", title = "Comparación de Valoración Horario Apertura por Edad") +
   theme_minimal()
 ```
+
 La mayoría de usuarios lo ha valorado bien. Los usuarios que han valorado negativamente el horario de apertura están en el rango de edad de 30 a 44 años.
 
 Pasemos ahora a analizar las respuestas sobre el nivel de satisfacción con la Biblioteca Histórica y sus servicios y veamos si existen diferencias significativas en la valoración entre diferentes edades. Para ello visualizemos el siguiente gráfico de violín.
 
-```{r}
+```{r, echo=FALSE}
 ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_general, fill = Rango_edad)) +
   geom_violin() +
   labs(x = "Rango edad", y = "Valoración General", title = "Comparación de Valoración General por Edad") +
@@ -156,6 +179,46 @@ ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_general, fill = Rango_eda
 ```
 
 Las personas de 18 a 29 años tienden a dar valoraciones más altas, con menos variabilidad. En cambio, los otros grupos presenta mayor dispersión, con valoraciones tanto altas como bajas, sugiriendo una percepción más diversa sobre los servicios de la Biblioteca Histórica.
+
+Dado que observamos diferencias en las valoraciones según el rango de edad, surge la hipótesis de que el nivel de satisfacción podría estar relacionado con la edad. Para confirmar si estas diferencias son estadísticamente significativas y no solo aleatorias, es adecuado realizar un test de independencia, lo que nos permitirá determinar si existe una relación entre el rango de edad y el nivel de satisfacción.
+
+Para ello hacemos una tabla de contingéncia de las dos variables a estudiar:
+
+```{r}
+tabla=table(data_biblio$Rango_edad,data_biblio$Valoracion_general)
+tabla
+
+```
+
+La funcion `chisq.test` aplicada a una tabla nos hace el test de independencia.
+
+```{r}
+chisq.test(tabla)
+```
+
+Nos fijamos que nos salta un `Warning`, esto se debe a que hay almenos una frecuencia esperada inferior a 5. Por lo tanto, el `chisq.test` no es fiable. Por esta razón vamos a estimar el p-valor del test de independencia mediante simulaciones.
+
+```{r}
+set.seed(NULL)
+chisq.test(tabla,simulate.p.value=TRUE,B=5000)$p.value
+```
+
+Vamos a repetir el proceso 3 veces más:
+
+```{r}
+chisq.test(tabla,simulate.p.value=TRUE,B=5000)$p.value
+```
+
+```{r}
+chisq.test(tabla,simulate.p.value=TRUE,B=5000)$p.value
+```
+
+```{r}
+chisq.test(tabla,simulate.p.value=TRUE,B=5000)$p.value
+```
+
+Considerando la interpretación usual $\alpha = 0.05$ el p-valor es sistemáticamente grande, lo que nos permite rechazar la hipótesis inicial de que las variables son dependientes. 
+
 
 Estudiemos la relación entre la valoración del trato y atención recibidos y el sexo de los individuos. Lo vemos representado en el siguiente gráfico de violín.
 
@@ -176,7 +239,7 @@ En resumen, las respuestas a las preguntas iniciales son las siguientes:
 
 -   La finalidad principal con que se dirigen habitualmente a la Biblioteca Histórica Municipales es Investigación y estudio.
 
--   Las personas de 18 a 29 años ofrecen una valoración general más alta, mientras que los otros grupos muestran mayor dispersión en sus opiniones.
+-   Las personas de 18 a 29 años ofrecen valoraciones más altas, mientras que los otros grupos muestran mayor dispersión; sin embargo, el test de independencia indica que las variables de rango de edad y valoración general son independientes.
 
 -   La mayoría de usuarios ha valorado bien el horario de apertura. Los que lo han valorado negativamente tienen entre 30 y 44 años.
 

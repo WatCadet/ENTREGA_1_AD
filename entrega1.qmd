@@ -24,7 +24,7 @@ Contiene datos cuantitativos (frecuencia), cualitativos (interés o finalidad) y
 
 Trabajaremos con la tabla de datos ordenados `data_biblio`. Su dimensión es de 68 filas y 29 columnas.
 
-```{r, echo: false, message=FALSE}
+```{r, echo= FALSE, message=FALSE}
 data_biblio <- read.csv("biblioteca_historica_2023.csv", header = TRUE, sep = ";")
 ```
 
@@ -36,8 +36,26 @@ colnames(data_biblio) <- c("Inicio_encuesta", "Finalidad", "Frecuencia", "Uso_co
 kable(head(data_biblio))
 ```
 
-Hay 68 individuos registrados. Para el estudio, consideramos las variables siguientes.
+Hay 68 individuos registrados. Para el estudio, consideramos algunas variables de interés.
 
+
+### Frecuencia
+
+¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica?
+
+Dato cuantitativo. Es una variable numérica que indica el número de veces que han acudido a la Biblioteca Histórica el último año.
+
+```{r, echo=FALSE, output=FALSE}
+data_biblio$Frecuencia = as.numeric(data_biblio$Frecuencia)
+table(data_biblio$Frecuencia)
+median(data_biblio$Frecuencia)
+```
+
+Tanto la moda como la mediana es de 1 vez en el último año. Veamos cómo están distribuidos los datos.
+
+```{r, echo=FALSE}
+boxplot(data_biblio$Frecuencia, col = "lightgreen", main = "Frecuencia", ylab = "Nº veces útlimo año")
+```
 ### Finalidad
 
 ¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal?
@@ -47,23 +65,16 @@ Dato cualitativo. Es un factor. Hay 4 categorías: Interés personal, Investigac
 ```{r, echo=FALSE, output=FALSE}
 data_biblio$Finalidad = as.factor(data_biblio$Finalidad)
 levels(data_biblio$Finalidad)
+table(data_biblio$Finalidad)
 ```
+La moda es Investigación y estudio, la finalidad principal es Investigación y estudio. 
+Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.
 
-### Frecuencia
-
-¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica?
-
-Dato cuantitativo. Es una variable numérica que indica el número de veces que han acudido a la Biblioteca Histórica el último año.
-
-```{r, echo=FALSE}
-data_biblio$Frecuencia = as.numeric(data_biblio$Frecuencia)
+```{r, echo=FALSE, warning=FALSE}
+ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
+  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
+  xlab("Finalidad")+ylab("")
 ```
-
-### Valoracion general
-
-¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?
-
-Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
 
 ### Rango edad
 
@@ -76,36 +87,66 @@ data_biblio$Rango_edad = as.factor(data_biblio$Rango_edad)
 levels(data_biblio$Rango_edad)
 ```
 
+Indicar moda (si es única) y hacer gráfico.
+
 ### Sexo
 
-Es un factor con dos categorías: Femenino y Masculino.
+Es un factor con dos categorías: Femenino y Masculino.  
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, output=FALSE}
 data_biblio$Sexo = as.factor(data_biblio$Sexo)
 levels(data_biblio$Sexo)
+table(data_biblio$Sexo)
 ```
+
+```{r, echo=FALSE }
+plot(x = data_biblio$Sexo, main = "Sexo", xlab = "Sexo", ylab = "Nº individuos", col = c("royalblue", "seagreen", "purple"))
+pie(table(data_biblio$Sexo), labels = c("No indicado (32)", "Femenino (12)", "Masculino (24)"))
+```
+
+### Valoracion general
+
+¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?
+
+Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+
+Indicar moda (si es única) y hacer gráfico.
+
+### Valoracion Horario Apertura
+
+¿Cuál es su valoración general de la Biblioteca Histórica y sus servicios?
+
+Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+
+
+### Valoracion Trato y atención
+
+¿Cuál es su valoración del trato y la atención recibidos?
+
+Es una variable cuantitativa ordinal, del 0 (muy mala) al 10 (muy buena).
+
 
 ## Objetivos
 
 Presentamos los objetivos planteados.
 
--   ¿Cuál es la principal finalidad con que se dirigen habitualmente a la Biblioteca Histórica Municipal?
-- Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios segun el rango de edad.
+-   Analizar la relación entre la valoración del horario de apertura y el rango de edad
+-   Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios segun el rango de edad.
+-   Analizar la relación entre la valoración del tiempo de descarga de los documentos digitalizados y el rango de edad
 
 ## Análisis
 
-Representamos gráficamente con qué finalidad se dirigen habitualmente a la Biblioteca Histórica Municipal.
+Analicemos la relación entre la valoración del horario de apertura y el rango de edad. Consideremos el siguiente gráfico de violín.
 
 ```{r, echo=FALSE, warning=FALSE}
-ggplot(data_biblio, aes(x=data_biblio$Finalidad)) +
-  geom_bar(color="blue", fill=rgb(0.1,0.4,0.5,0.7))+
-  xlab("Finalidad")+ylab("")
+ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_horario_apertura, fill = Rango_edad)) +
+  geom_violin() +
+  labs(x = "Rango edad", y = "Valoración Horario Apertura", title = "Comparación de Valoración Horario Apertura por Edad") +
+  theme_minimal()
 ```
+La mayoría de usuarios lo ha valorado bien. Los usuarios que han valorado negativamente el horario de apertura están en el rango de edad de 30 a 44 años.
 
-La finalidad principal es Investigación y estudio.
-
-Pasemos ahora a analizar las respuestas sobre el nivel de satisfacción con la Biblioteca Histórica y sus servicios y veamos si existen diferencias significativas en la valoración entre diferentes edades. Para ello visualizemos el siguiente gráfico de violín. 
-
+Pasemos ahora a analizar las respuestas sobre el nivel de satisfacción con la Biblioteca Histórica y sus servicios y veamos si existen diferencias significativas en la valoración entre diferentes edades. Para ello visualizemos el siguiente gráfico de violín.
 
 ```{r}
 ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_general, fill = Rango_edad)) +
@@ -114,12 +155,29 @@ ggplot(data_biblio, aes(x = Rango_edad, y = Valoracion_general, fill = Rango_eda
   theme_minimal()
 ```
 
-Las personas de 18 a 29 años tienden a dar valoraciones más altas, con menos variabilidad. En cambio, los otros grupos presenta mayor dispersión, con valoraciones tanto altas como bajas, sugiriendo una percepción más diversa sobre los servicios de la Biblioteca Histórica. 
+Las personas de 18 a 29 años tienden a dar valoraciones más altas, con menos variabilidad. En cambio, los otros grupos presenta mayor dispersión, con valoraciones tanto altas como bajas, sugiriendo una percepción más diversa sobre los servicios de la Biblioteca Histórica.
+
+Estudiemos la relación entre la valoración del trato y atención recibidos y el sexo de los individuos. Lo vemos representado en el siguiente gráfico de violín.
+
+```{r,echo=FALSE, warning=FALSE}
+ggplot(data_biblio, aes(x = Sexo, y = Valoracion_trato_atencion, fill = Sexo)) +
+  geom_violin() +
+  labs(x = "Sexo", y = "Valoración Trato y Atención recibidos", title = "Comparación de Valoración Trato y Atención recibidos por Sexo") +
+  theme_minimal()
+```
+
+Todos los usuarios valoran bien el trato y atención recibidos. Ahora bien, todas las mujeres lo han valorado muy bien (entre 9 y 10) mientras que los usuarios que lo han valorado entre 6 y 8 son hombres.
 
 ## Conclusiones
 
 En resumen, las respuestas a las preguntas iniciales son las siguientes:
 
-- La finalidad principal es Investigación y estudio.
+-   Los usuarios han acudido de mediana 1 vez a la Biblioteca Histórica Municipales en el último año.
 
-- Las personas de 18 a 29 años ofrecen valoraciones más altas, mientras que los otros grupos muestran mayor dispersión en sus opiniones.
+-   La finalidad principal con que se dirigen habitualmente a la Biblioteca Histórica Municipales es Investigación y estudio.
+
+-   Las personas de 18 a 29 años ofrecen una valoración general más alta, mientras que los otros grupos muestran mayor dispersión en sus opiniones.
+
+-   La mayoría de usuarios ha valorado bien el horario de apertura. Los que lo han valorado negativamente tienen entre 30 y 44 años.
+
+-   Todos los usuarios valoran bien el trato y atención recibidos.

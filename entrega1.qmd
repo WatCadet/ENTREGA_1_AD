@@ -17,11 +17,22 @@ library(knitr)
 
 Observamos los resultados de la Encuesta de Satisfacción de las personas usuarias de la Biblioteca Histórica Municipal de Madrid en el año 2023.
 
-Describimos los datos obtenidos, planteamos objetivos, analizamos los datos y obtenemos conclusiones.
+Se han recogido datos del interés, frecuencia de uso, grado de conocimiento y satisfacción de los usuarios de la Biblioteca Histórica Municipal de Madrid en relación a los servicios prestados.
+
+Planteamos objetivos de estudio, describimos los datos, los analizamos y obtenemos conclusiones.
+
+## Objetivos
+
+Presentamos los objetivos planteados.
+
+-   Analizar la relación entre la valoración del horario de apertura y el rango de edad.
+-   Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios según el rango de edad.
+-   Analizar la relación entre la valoración del trato y atención recibidos y el sexo.
+-   Analizar la relación entre la valoración del tiempo de descarga de los documentos digitalizados y el rango de edad.
 
 ## Descripción de los datos
 
-Se han recogido datos del interés, frecuencia de uso, grado de conocimiento y satisfacción de los usuarios de la Biblioteca Histórica Municipal de Madrid en relación a los servicios prestados. Anualmente se realiza una encuesta de satisfacción a las personas usuarias de la Biblioteca Histórica para evaluar su grado de conocimiento y satisfacción en relación a los compromisos de calidad adquiridos con la ciudadanía a través de la “ Carta de Servicios de la Biblioteca Histórica Municipal, Biblioteca Musical Víctor Espinós y Hemeroteca Municipal ”. Los resultados de esta encuesta en el año 2023 se muestran en este conjunto de datos aportando tanto las preguntas como las respuestas obtenidas de forma anónima.
+Anualmente se realiza una encuesta de satisfacción a las personas usuarias de la Biblioteca Histórica para evaluar su grado de conocimiento y satisfacción en relación a los compromisos de calidad adquiridos con la ciudadanía a través de la “ Carta de Servicios de la Biblioteca Histórica Municipal, Biblioteca Musical Víctor Espinós y Hemeroteca Municipal ”. Los resultados de esta encuesta en el año 2023 se muestran en este conjunto de datos aportando tanto las preguntas como las respuestas obtenidas de forma anónima.
 
 Contiene datos cuantitativos (frecuencia), cualitativos (interés o finalidad) y ordinales (valoraciones del 0 al 10).
 
@@ -39,13 +50,13 @@ colnames(data_biblio) <- c("Inicio_encuesta", "Finalidad", "Frecuencia", "Uso_co
 kable(head(data_biblio))
 ```
 
-Hay 68 individuos registrados. Para el estudio, consideramos algunas variables de interés.
+Hay 68 individuos registrados. Para el estudio, consideramos las siguientes variables de interés.
 
 ### Frecuencia
 
 ¿Cuántas veces ha acudido en el último año a la Biblioteca Histórica?
 
-Dato cuantitativo. Es una variable numérica que indica el número de veces que han acudido a la Biblioteca Histórica el último año.
+Es un dato cuantitativo. Es una variable numérica que indica el número de veces que han acudido a la Biblioteca Histórica el último año.
 
 ```{r, echo=FALSE}
 data_biblio$Frecuencia = as.numeric(data_biblio$Frecuencia)
@@ -71,7 +82,7 @@ Observamos, al igual que en la tabla inicial, que la mayoría de los individuos 
 
 ¿Con qué finalidad se dirige habitualmente a la Biblioteca Histórica Municipal?
 
-Dato cualitativo. Es un factor. Hay 4 categorías: Interés personal, Investigación y estudio, Interés profesional y Ocio.
+Es un dato cualitativo. Es un factor. Hay 4 categorías: Interés personal, Investigación y estudio, Interés profesional y Ocio.
 
 ```{r, echo=FALSE, output=FALSE}
 data_biblio$Finalidad = as.factor(data_biblio$Finalidad)
@@ -149,7 +160,7 @@ pie(table(data_biblio$Sexo), main = "Individuos por Sexo", labels = c("No indica
 ```
 
 El gráfico de pastel anterior muestra la distribución de individuos según su sexo.
-Cada porción está etiquetada con el número de individuos y tiene un color diferente para distinguir las categorías. Además, este evidencia que la mayor parte de los individuos no indicaron el sexo.
+Cada porción está etiquetada con el número de individuos y tiene un color diferente para distinguir las categorías. Además, este evidencia que gran parte de los individuos no indicaron el sexo.
 
 ### Valoracion general
 
@@ -230,15 +241,6 @@ table(data_biblio$Valoracion_tiempo_descarga_doc_digital)
 
 La moda es el 10.
 
-## Objetivos
-
-Presentamos los objetivos planteados.
-
--   Analizar la relación entre la valoración del horario de apertura y el rango de edad.
--   Analizar si existen diferencias significativas en la valoración general de la Biblioteca Histórica y sus servicios segun el rango de edad.
--   Analizar la relación entre la valoración del trato y atención recibidos y el sexo.
--   Analizar la relación entre la valoración del tiempo de descarga de los documentos digitalizados y el rango de edad.
-
 ## Análisis
 
 ### Valoración horario de apertura y Rango de edad
@@ -269,7 +271,7 @@ Las personas de 18 a 29 años tienden a dar valoraciones más altas, con menos v
 
 Dado que observamos diferencias en las valoraciones según el rango de edad, surge la hipótesis de que el nivel de satisfacción podría estar relacionado con la edad. Para confirmar si estas diferencias son estadísticamente significativas y no solo aleatorias, es adecuado realizar un test de independencia, lo que nos permitirá determinar si existe una relación entre el rango de edad y el nivel de satisfacción.
 
-Para ello hacemos una tabla de contingéncia de las dos variables a estudiar:
+Para ello hacemos una tabla de contingencia de las dos variables a estudiar:
 
 ```{r}
 tabla=table(data_biblio$Rango_edad,data_biblio$Valoracion_general)
@@ -334,11 +336,13 @@ En general todos los usuarios han valorado bien el tiempo de descarga de los doc
 
 ## Conclusiones
 
-En conclusión, las respuestas a las preguntas iniciales son las siguientes:
+En conclusión, las respuestas a las cuestiones planteadas y otros resultados de interés son los siguientes:
 
 -   Los usuarios han acudido de mediana 1 vez a la Biblioteca Histórica Municipales en el último año.
 
 -   La finalidad principal con que se dirigen habitualmente a la Biblioteca Histórica Municipales es Investigación y estudio.
+
+-   La mayoría de usuarios tienen más de 45 años.
 
 -   Las personas de 18 a 29 años ofrecen una valoración general más alta, mientras que los otros grupos muestran mayor dispersión; sin embargo, el test de independencia indica que las variables de rango de edad y valoración general son independientes.
 
@@ -346,4 +350,4 @@ En conclusión, las respuestas a las preguntas iniciales son las siguientes:
 
 -   Todos los usuarios valoran bien el trato y atención recibidos.
 
-- La satisfacción con el tiempo de descarga de documentos es en general positiva, aunque las personas mayores tienden a otorgar una valoración más baja.
+-   La satisfacción con el tiempo de descarga de documentos es en general positiva, aunque las personas mayores tienden a otorgar una valoración más baja.
